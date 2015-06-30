@@ -3,15 +3,16 @@ import xml.dom.minidom as mini
 
 
 BASEPATH = '../data'
-years = os.listdir(BASEPATH)
+years = ['1987']#, '1988', '1989', '1990', '1991']
 for year in years:
     if year.startswith('.'):
         continue
     print year
     yearPath = BASEPATH + '/' + year
+    fout = open(yearPath + '/body.txt', 'w')
     months = os.listdir(yearPath)
     for month in months:
-        if month.startswith('.'):
+        if month.startswith('.') or month.endswith('.txt'):
             continue
         print month
         monthPath = yearPath + '/' + month
@@ -20,7 +21,6 @@ for year in years:
             if day.startswith('.'):
                 continue
             dayPath = monthPath + '/' + day
-            fout = open(dayPath + '/body.txt', 'w')
             files = os.listdir(dayPath)
             for file in files:
                 if file.startswith('.') or file.endswith('.txt'):
@@ -55,5 +55,5 @@ for year in years:
                             text += ' '
                         #print text
                         fout.write(text + '\n-----\n')
-            fout.close()
+    fout.close()
 
